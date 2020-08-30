@@ -6,11 +6,23 @@ var http = require("http");
 var path = require("path");
 const hls = require("hls-server");
 const fs = require("fs");
+const cors = require('cors');
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.get("/", function (req, res) {
   // res.send("Hello World");
+  // exec(
+  //   "ffmpeg -f v4l2 -i /dev/video0 -vcodec libx264 -g 30 -hls_time 0.05 -strict experimental -pix_fmt yuv420p public/playlist.m3u8",
+  //   (err, stdout, stderr) => {
+  //     if (err) {
+  //       console.error(err);
+  //     } else {
+  //       // console.log(`stdout: ${stdout}`);
+  //     }
+  //   }
+  // );
   return res.status(200).sendFile(`${__dirname}/index.html`);
 });
 app.get("/capture", function (req, res) {
@@ -61,7 +73,7 @@ new hls(server, {
   provider: {
     exists: (req, cb) => {
       const ext = req.url.split(".").pop();
-
+      console.log(req.url);
       if (ext !== "m3u8" && ext !== "ts") {
         return cb(null, true);
       }

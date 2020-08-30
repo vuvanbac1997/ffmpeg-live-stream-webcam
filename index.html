@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-    <meta charset="UTF-8" />
-    <title>HLS Player</title>
-</head>
-
 <body>
-    <video id="video" width="500" height="500" autoplay controls></video>
+    <video id="video" width="500" height="500" autoplay></video>
     <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <script>
         const video = document.getElementById('video');
-        const videoSrc = '/public/playlist.m3u8';
+        const videoSrc = 'http://localhost:8081/public/playlist.m3u8';
         if (Hls.isSupported()) {
             const hls = new Hls();
 
